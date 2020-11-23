@@ -1,11 +1,16 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, url_for, request
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/api', methods=['GET', 'POST'])
 def hello_world():
-    return jsonify({'text': 'Hello World!'})
+    data = request.get_json()
+
+    if request.method == 'POST':
+        print('data: ', data)
+
+        return {'status': 200}
 
 
 if __name__ == '__main__':
