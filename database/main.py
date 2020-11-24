@@ -23,17 +23,17 @@ attempts_table_name = 'robocontest_bot_attempts'
 def get_user_attempt(attempt_id):
     with closing(get_connection()) as connection:
         with connection.cursor() as cursor:
-            cursor.execute(f'SELECT * FROM testdb.{attempts_table_name} WHERE attempt_id = %s', id)
+            cursor.execute(f'SELECT * FROM testdb.{attempts_table_name} WHERE attempt_id = %s', attempt_id)
             record = cursor.fetchone()
 
     return record
 
 
-def update_attempt_status(id, status):
+def update_attempt_status(attempt_id, status):
     with closing(get_connection()) as connection:
         with connection.cursor() as cursor:
             sql = f'UPDATE testdb.{attempts_table_name} SET status = %s WHERE attempt_id = %s'
-            cursor.execute(sql, (status, id))
+            cursor.execute(sql, (status, attempt_id))
             connection.commit()
 
     return_value = 'not updated'
