@@ -25,7 +25,12 @@ def send_message(data):
     attempt = get_user_attempt(attempt_id)
     method = '/sendMessage'
     url = full_url + method
-    params = {'chat_id': attempt['user_tg_id'], 'text': reply_text, 'parse_mode': 'HTML'}
+    params = {
+        'chat_id': attempt['user_tg_id'],
+        'text': reply_text, 'parse_mode': 'HTML',
+        'reply_to_message_id': attempt['message_id'],
+        'allow_sending_without_reply': True
+    }
     r = requests.get(url, params=params)
     r = r.json()['ok']
 
